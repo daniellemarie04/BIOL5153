@@ -1,5 +1,27 @@
 #!/usr/bin/env python3
 
+# create an ArgumentParser object ('parser') that will hold all the information necessary
+# to parse the command line
+parser = argparse.ArgumentParser(description = "generates a PBS job script for the AHPCC Trestles cluster")
+
+# add positional (required) arguments
+parser.add_argument( "watermelon_fasta", help = "watermelon_fasta" )
+parser.add_argument( "watermelon_gff", help = "watermelon_gff" )
+
+#infile_name = "/Desktop/watermenlon_files"
+#job_name = "
+#queue = "available"
+#walltime =00:30:00 
+#ppn = 1
+
+print("#PBS -N " + args.job_name)
+print("#PBS -q " + args.queue)
+print("#PBS -j oe")
+print("#PBS -m abe")
+print("#PBS -M dmaynard@uark.edu")
+print("#PBS -o " + args.job_name + ".$PBS_JOBID") 
+print("#PBS -l nodes=1:ppn=" + str(args.ppn))
+print("#PBS -l walltime=" + str(args.walltime) + ":00:00" )
 
 #read the files in, open files
 
