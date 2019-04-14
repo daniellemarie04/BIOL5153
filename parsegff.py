@@ -1,49 +1,45 @@
 #!/usr/bin/env python3
 
+import argparse
+import csv 
+import Bio
+from Bio import SeqIO
+
+
 # create an ArgumentParser object ('parser') that will hold all the information necessary
 # to parse the command line
 parser = argparse.ArgumentParser(description = "generates a PBS job script for the AHPCC Trestles cluster")
 
 # add positional (required) arguments
-parser.add_argument( "watermelon_fasta", help = "watermelon_fasta" )
+parser.add_argument( "watermelon_fasta", help = "watermelon_fasta", type=argparse.Filetype)
 parser.add_argument( "watermelon_gff", help = "watermelon_gff" )
 
-#infile_name = "/Desktop/watermenlon_files"
-#job_name = "
-#queue = "available"
-#walltime =00:30:00 
-#ppn = 1
+# specify the input files
+fasta_file = 'watermelon.fsa'
 
-print("#PBS -N " + args.job_name)
-print("#PBS -q " + args.queue)
-print("#PBS -j oe")
-print("#PBS -m abe")
-print("#PBS -M dmaynard@uark.edu")
-print("#PBS -o " + args.job_name + ".$PBS_JOBID") 
-print("#PBS -l nodes=1:ppn=" + str(args.ppn))
-print("#PBS -l walltime=" + str(args.walltime) + ":00:00" )
-
-#read the files in, open files
-
-fasta = "watermelon.fsa"
-genome = open(fasta, "r")
+# open the FASTA file
+fsa = open(fasta_file)
 
 
-filename = "watermelon.gff"
-gff = open(filename, "r")
+#read the files in, open files with csv
+with open('watermelon.gff', 'r') as melon:
+	#create a csv reader object
+	csvreader = csv.reader(melon, delimiter=',')
+	for line in csvreader:
+		if not line:
+			continue
+		else:
+			#create csv writer object
+			linewriter = csv.writer(delimiter='\t', quaterchar='"')
 
+	for line in melon:
+		print(line)
 
-#reading line by line
+for fsa in SeqIO.parse("watermelon.fsa", "fasta"):
+    print(seq_record.id)
+    print(repr(seq_record.seq))
+    print(len(seq_record)
 
-for line in gff:
-	line = gff.readline()
-
-    #skip blanks
-	if not line.strip():
-
-
-    #remove line breaks
-    line = line.rstrip('\n')
     
 #split based on tabs
 #sequence, source, feature, begin, end, length, strand, phase, attributes = line.split('\t')
