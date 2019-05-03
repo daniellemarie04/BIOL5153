@@ -1,0 +1,24 @@
+File: maynard_assn04.1.pbs                                                          
+
+#!/bin/bash
+
+#PBS -N dani_m_test
+#PBS -q qcondo_public
+#PBS -j oe
+#PBS -m abe
+#PBS -M dmaynard@uark.edu
+#PBS -o test.$PBS_JOBID.txt
+#PBS -l nodes=1:ppn=8
+#PBS -l walltime=00:00:30:00
+
+cd $PBS_O_WORKDIR
+
+module purge
+
+module load blast
+
+makeblastdb -in nad4L.fasta -dbtype prot -out nad4L.db
+
+blastn -query nad4L.fasta -db nad4L.db -out nad4L.output
+
+
